@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="word-list-container">
+    <h2>Daftar Kata</h2>
+    
+    {% if words %}
+    <div class="word-list">
+        {% for word in words %}
+        <div class="word-item">
+            <div class="word-content">
+                <h3>{{ word.word|title }}</h3>
+                <div class="word-details">
+                    <p><strong>Arti:</strong> {{ word.meaning }}</p>
+                    <p><strong>Contoh:</strong> "{{ word.example }}"</p>
+                    <p class="author">Ditambahkan oleh: {{ word.author.username }}</p>
+                </div>
+            </div>
+            {% if current_user.id == word.user_id %}
+            <div class="word-actions">
+                <a href="{{ url_for('delete_word', word_id=word.id) }}" class="btn btn-delete" onclick="return confirm('Apakah Anda yakin ingin menghapus kata ini?')">Hapus</a>
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="no-words">Belum ada kata yang ditambahkan.</p>
+    {% endif %}
+    
+    <div class="action-buttons">
+        <a href="{{ url_for('add_word') }}" class="btn btn-primary">Tambah Kata Baru</a>
+    </div>
+</div>
+{% endblock %} 

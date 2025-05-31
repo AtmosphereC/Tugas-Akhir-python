@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dictionary-container">
+    <div class="search-section">
+        <h2>Cari Kata</h2>
+        <form method="POST" action="{{ url_for('dictionary') }}" class="search-form">
+            <div class="search-box">
+                <input type="text" name="search" placeholder="Masukkan kata yang ingin dicari..." required {% if search %}value="{{ search }}"{% endif %}>
+                <button type="submit" class="btn btn-primary">Cari</button>
+            </div>
+        </form>
+    </div>
+
+    {% if word %}
+    <div class="result-section">
+        <div class="word-card">
+            <h3 class="word-title">{{ word.word|title }}</h3>
+            <div class="word-content">
+                <div class="meaning">
+                    <h4>Arti:</h4>
+                    <p>{{ word.meaning }}</p>
+                </div>
+                <div class="example">
+                    <h4>Contoh Penggunaan:</h4>
+                    <p>"{{ word.example }}"</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% elif search %}
+    <div class="no-result">
+        <p>Kata "{{ search }}" tidak ditemukan dalam kamus.</p>
+        <a href="{{ url_for('add_word') }}" class="btn btn-secondary">Tambahkan ke Kamus</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %} 

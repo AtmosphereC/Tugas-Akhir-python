@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero">
+    <h1>Selamat Datang di Kamus Pintar</h1>
+    <p class="subtitle">Temukan arti kata bahasa Indonesia dengan mudah dan cepat</p>
+    
+    {% if not current_user.is_authenticated %}
+    <div class="cta-buttons">
+        <a href="{{ url_for('login') }}" class="btn btn-primary">Login</a>
+        <a href="{{ url_for('signup') }}" class="btn btn-secondary">Daftar</a>
+    </div>
+    {% else %}
+    <div class="cta-buttons">
+        <a href="{{ url_for('dictionary') }}" class="btn btn-primary">Mulai Mencari</a>
+    </div>
+    {% endif %}
+</div>
+
+<div class="features">
+    <div class="feature-card">
+        <h3>Pencarian Cepat</h3>
+        <p>Temukan arti kata dalam hitungan detik</p>
+    </div>
+    <div class="feature-card">
+        <h3>Contoh Penggunaan</h3>
+        <p>Lihat contoh penggunaan kata dalam kalimat</p>
+    </div>
+    <div class="feature-card">
+        <h3>Tambah Kata Baru</h3>
+        <p>Kontribusikan kata-kata baru ke database kami</p>
+    </div>
+</div>
+{% endblock %} 
